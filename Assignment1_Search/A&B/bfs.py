@@ -30,8 +30,16 @@ class bfs(node.node):
                 if right_child is not None:
                     queue.append(right_child)
 
-        # Show organize visited nodes
-        final_set: str = ""
-        for node in visited:
-            final_set += node.get_name() + " -> "
-        return print(final_set[:-4]) # Dont show the last arrow
+        # Show path from start to goal
+        return print(self.get_path(visited, start_node, goal_node))
+    
+    def get_path(self, visited, start, goal):
+        path = []
+
+        while visited:
+            visited_reversed = visited[::-1]
+            for node in visited_reversed:
+                path.append(node.get_)
+                if node == start:
+                    return path
+            
