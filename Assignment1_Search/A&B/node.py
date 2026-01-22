@@ -25,10 +25,16 @@ class node:
         return self.right
     
     def set_name(self, name):
+        if not isinstance(name, str):
+            raise ValueError("Name must be a string")
         self.name = name
 
     def set_left(self, left):
+        if not isinstance(left, object):
+            raise TypeError("Left must be an object")
         self.left = left
 
     def set_right(self, right):
+        if not isinstance(right, object):
+            raise TypeError("Right must be an object")
         self.right = right
