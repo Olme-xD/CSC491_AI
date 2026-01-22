@@ -1,28 +1,37 @@
-import Assignment1_Search.node as node
+from collections import deque
+import node
 
-class BFS(node):
+class bfs(node.node):
     def __init__(self):
         pass
 
     def search(self, start_node, goal_node):
-        from collections import deque
+        queue = deque()
+        visited = []
 
-        on_queue = deque()
-        visited = set()
+        queue.append(start_node)
+        while queue:
+            current_node = queue.popleft()
+            visited.append(current_node)
 
-        on_queue.append(start_node)
-        while on_queue:
-            current_node = on_queue.pop()
+            # Check if the current node is the goal node
             if current_node == goal_node:
-                visited.add(current_node)
-                return True
-            
-            left_child = current_node.get_letfChild()
-            right_child = current_node.get_rightChild()
-            on_queue.append(left_child)
-            on_queue.append(right_child)
+                break
+            else:
+                parent_node = current_node
+                
+                # Check if left child exists before adding to queue
+                left_child = parent_node.get_leftChild()
+                if left_child is not None:
+                    queue.append(left_child)
 
-            if left_child == goal_node:
-                visited.add(left_child)
-                return True
+                # Check if right child exists before adding to queue
+                right_child = parent_node.get_rightChild()
+                if right_child is not None:
+                    queue.append(right_child)
 
+        # Show organize visited nodes
+        final_set: str = ""
+        for node in visited:
+            final_set += node.get_name() + " -> "
+        return print(final_set[:-4]) # Dont show the last arrow
