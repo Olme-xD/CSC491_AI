@@ -1,22 +1,23 @@
 class node:
+    name: str
+    parent: object
     left: object
     right: object
-    name: str
 
-    def __init__(self, name="node", left=None, right=None):
-        if isinstance(name, str):
-            self.name = name
-        else:
-            raise ValueError("Name must be a string")  
+    def __init__(self, name="node", parent=None, left=None, right=None):
+        if not isinstance(name, str) and not isinstance(left, node) and not isinstance(right, node):
+            raise ValueError("Invalid parameters for node initialization")
         
-        if left is not None or not isinstance(left, node) and right is not None or not isinstance(right, node):
-            self.left = left
-            self.right = right
-        else:
-            raise ValueError("Left and Right must be node objects or None")
+        self.name = name
+        self.parent = parent
+        self.left = left
+        self.right = right
     
     def get_name(self):
         return self.name
+    
+    def get_parent(self):
+        return self.parent
 
     def get_leftChild(self):
         return self.left
@@ -28,6 +29,11 @@ class node:
         if not isinstance(name, str):
             raise ValueError("Name must be a string")
         self.name = name
+
+    def set_parent(self, parent):
+        if not isinstance(parent, object):
+            raise TypeError("Parent must be an object")
+        self.parent = parent
 
     def set_left(self, left):
         if not isinstance(left, object):

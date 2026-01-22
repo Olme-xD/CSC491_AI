@@ -29,17 +29,26 @@ class bfs(node.node):
                 right_child = parent_node.get_rightChild()
                 if right_child is not None:
                     queue.append(right_child)
+        
+        # Show organized visited nodes
+        final_visited: str = ""
+        for node in visited:
+            final_visited += node.get_name() + " -> "
+        print("BFS Visited: " + final_visited[:-4]) # Remove the last arrow
 
-        # Show path from start to goal
-        return print(self.get_path(visited, start_node, goal_node))
-    
-    def get_path(self, visited, start, goal):
-        path = []
+        # Start to add path nodes to final set
+        final_path: str = ""
+        visited_reverse = visited[::-1]
+        final_path += visited_reverse[0].get_name() + " >- "
+        prev_node = visited_reverse[0]
 
-        while visited:
-            visited_reversed = visited[::-1]
-            for node in visited_reversed:
-                path.append(node.get_)
-                if node == start:
-                    return path
-            
+        # Trace back the path from goal to start using parent references
+        for node in visited_reverse:
+            if node.get_leftChild() == prev_node or node.get_rightChild() == prev_node:
+                final_path += node.get_name() + " >- "
+                prev_node = node
+
+        final_path = final_path[:-4]  # Remove the last arrow
+        final_path = final_path[::-1]  # Reverse the string to get correct order
+        print("BFS Path: " + final_path)
+        return

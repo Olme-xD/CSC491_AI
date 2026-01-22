@@ -29,8 +29,25 @@ class dfs(node.node):
                 if left_child is not None:
                     stack.append(left_child)
 
-        # Show organize visited nodes
-        final_set: str = ""
+        # Show organized visited nodes
+        final_visited: str = ""
         for node in visited:
-            final_set += node.get_name() + " -> "
-        return print(final_set[:-4]) # Remove the last arrow
+            final_visited += node.get_name() + " -> "
+        print("DFS Visited: " + final_visited[:-4]) # Remove the last arrow
+
+        # Start to add path nodes to final set
+        final_path: str = ""
+        visited_reverse = visited[::-1]
+        final_path += visited_reverse[0].get_name() + " >- "
+        prev_node = visited_reverse[0]
+
+        # Trace back the path from goal to start using parent references
+        for node in visited_reverse:
+            if node.get_leftChild() == prev_node or node.get_rightChild() == prev_node:
+                final_path += node.get_name() + " >- "
+                prev_node = node
+
+        final_path = final_path[:-4]  # Remove the last arrow
+        final_path = final_path[::-1]  # Reverse the string to get correct order
+        print("DFS Path: " + final_path)
+        return
